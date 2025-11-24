@@ -46,32 +46,44 @@ function t(key) {
     return translations[currentLang][key];
 }
 
-// Load saved language if available
-const savedLang = localStorage.getItem('qr_lang');
-if (savedLang) {
-    currentLang = savedLang;
-    document.documentElement.lang = currentLang;
-    document.body.classList.toggle('rtl', currentLang === 'ar');
-}
-
-
-function toggleLanguage() {
-    currentLang = currentLang === 'en' ? 'ar' : 'en';
+// apply language to DOM and toggle button
+function applyLanguage(lang) {
+    currentLang = lang;
     document.documentElement.lang = currentLang;
     document.body.classList.toggle('rtl', currentLang === 'ar');
 
-        localStorage.setItem('qr_lang', currentLang);
-    
-    // Update all elements with data-en and data-ar attributes
+    // Update all elements that have both data-en and data-ar
     document.querySelectorAll('[data-en][data-ar]').forEach(element => {
         element.textContent = element.getAttribute(`data-${currentLang}`);
     });
 
-    // Update language toggle button
+    // Update language toggle button text (if it exists)
     const langToggle = document.getElementById('langToggle');
-    const langText = langToggle.querySelector('.lang-text');
-    langText.textContent = currentLang === 'en' ? 'العربية' : 'English';
+    if (langToggle) {
+        const langText = langToggle.querySelector('.lang-text');
+        if (langText) langText.textContent = currentLang === 'en' ? 'العربية' : 'English';
+    }
 }
+
+
+// Load saved language if available
+// Load saved language if available
+const savedLang = localStorage.getItem('qr_lang');
+if (savedLang) {
+    applyLanguage(savedLang);
+} else {
+    // ensure defaults are applied on first load
+    applyLanguage(currentLang);
+}
+
+
+
+function toggleLanguage() {
+    const newLang = currentLang === 'en' ? 'ar' : 'en';
+    applyLanguage(newLang);
+    localStorage.setItem('qr_lang', newLang);
+}
+
 
 function updateStatus(message, type = '') {
     status.textContent = message;
