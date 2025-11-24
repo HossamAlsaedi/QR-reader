@@ -10,13 +10,21 @@
 </head>
 <body>
     <div class="container">
-        <h1>QR Code Reader</h1>
-        <p class="subtitle">Upload an image file to decode QR codes</p>
+        <button class="language-toggle" onclick="toggleLanguage()" id="langToggle">
+            <span class="lang-icon">🌐</span>
+            <span class="lang-text">العربية</span>
+        </button>
+
+        <div class="header">
+            <div class="app-icon">🔳</div>
+            <h1 data-en="QR Code Reader" data-ar="قارئ رمز الباركود">QR Code Reader</h1>
+            <p class="subtitle" data-en="Upload an image file to decode QR codes" data-ar="قم بتحميل ملف صورة لفك تشفير رمز الباركود">Upload an image file to decode QR codes</p>
+        </div>
         
         <div class="upload-area" id="uploadArea">
-            <div class="upload-icon">📁</div>
-            <div class="upload-text">Drag & Drop QR Code Image</div>
-            <div class="upload-subtext">or click to browse files</div>
+            <div class="upload-icon">📂</div>
+            <div class="upload-text" data-en="Drag & Drop QR Code Image" data-ar="اسحب وأفلت صورة رمز الباركود">Drag & Drop QR Code Image</div>
+            <div class="upload-subtext" data-en="or click to browse files" data-ar="أو انقر لتصفح الملفات">or click to browse files</div>
         </div>
 
         <input type="file" id="fileInput" accept="image/*" multiple>
@@ -28,19 +36,42 @@
         <div id="status" class="status"></div>
 
         <div id="result" class="result">
-            <h3>QR Code Content:</h3>
+            <h3 data-en="QR Code Content:" data-ar="محتوى رمز QR:">QR Code Content:</h3>
             <div id="resultContent" class="result-content"></div>
             <div class="action-buttons">
-                <button onclick="copyToClipboard()">📋 Copy</button>
-                <button onclick="openAsUrl()" id="openUrlBtn" style="display: none;">🔗 Open Link</button>
-                <button onclick="clearResult()" class="clear-btn">🗑️ Clear</button>
+                <button class="big-button" onclick="copyToClipboard()">
+                    <span class="button-icon">📋</span>
+                    <span class="button-label" data-en="Copy" data-ar="نسخ">Copy</span>
+                </button>
+                <button class="big-button open-link-btn" onclick="openAsUrl()" id="openUrlBtn" style="display: none;">
+                    <span class="button-icon">🔗</span>
+                    <span class="button-label" data-en="Open Link" data-ar="فتح الرابط">Open Link</span>
+                </button>
+                <button class="big-button clear-btn" onclick="clearResult()">
+                    <span class="button-icon">🔄</span>
+                    <span class="button-label" data-en="New Scan" data-ar="مسح جديد">New Scan</span>
+                </button>
             </div>
         </div>
 
-        <div class="supported-formats">
-            <strong>Supported formats:</strong> JPG, PNG, GIF, BMP, WebP<br>
-            <strong>Tip:</strong> For best results, ensure the QR code is clear and well-lit<br>
-            <button onclick="testWithSample()" style="margin-top: 10px; font-size: 0.9rem; padding: 8px 15px;">🧪 Test with Sample QR Code</button>
+        <div class="info-section">
+            <div class="quality-note">
+                <span class="note-icon">💡</span>
+                <div class="note-content">
+                    <strong data-en="Important:" data-ar="مهم:">Important:</strong>
+                    <span data-en="For best results, use clear, high-quality images. Small or blurry QR codes may not be detected." data-ar="للحصول على أفضل النتائج، استخدم صورًا واضحة وعالية الجودة. قد لا يتم اكتشاف رموز الباركود الصغيرة أو الضبابية.">For best results, use clear, high-quality images. Small or blurry QR codes may not be detected.</span>
+                </div>
+            </div>
+            
+            <div class="supported-formats">
+                <strong data-en="Supported formats:" data-ar="التنسيقات المدعومة:">Supported formats:</strong> JPG, PNG, GIF, BMP, WebP<br>
+                <strong data-en="Tip:" data-ar="نصيحة:">Tip:</strong> <span data-en="Ensure the QR code is well-lit and in focus" data-ar="تأكد من أن رمز الباركود مضاء جيدًا وواضح">Ensure the QR code is well-lit and in focus</span>
+            </div>
+            
+            <button class="test-button" onclick="testWithSample()">
+                <span>🧪</span>
+                <span data-en="Test with Sample QR Code" data-ar="اختبار بعينة من رمز الباركود">Test with Sample QR Code</span>
+            </button>
         </div>
     </div>
 </body>
